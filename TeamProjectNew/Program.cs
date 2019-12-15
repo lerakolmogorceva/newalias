@@ -10,7 +10,7 @@ namespace TeamProjectNew
     {
         static void Main(string[] args)
         {
-            Console.
+            Console.WriteLine("megv");
         }
     }
 }
