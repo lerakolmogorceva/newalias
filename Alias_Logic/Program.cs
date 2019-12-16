@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TeamProjectNew
+namespace Alias_Core
 {
     class Program
     {
         static void Main(string[] args)
         {
-            GameManager();
+            var manager = new GameManager();
         }
     }
 }

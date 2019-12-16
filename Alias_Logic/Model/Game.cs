@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TeamProjectNew
+namespace Alias_Core
 {
     public class Game
     {
