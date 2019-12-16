@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace TeamProjectNew
 {
-    class Program
+    class GameManager
     {
-        static void Main(string[] args)
-        {
-            GameManager();
-        }
+
+
     }
 }
