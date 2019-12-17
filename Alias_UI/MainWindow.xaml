@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Alias_UI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -26,6 +26,7 @@
         <TextBlock Name="NumberOfTeamsText" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="0,20,0,20" FontSize="20" Visibility="Collapsed">
             Set number of teams
         </TextBlock>
+        <TextBlock Name="TestBlock" FontSize="30"> </TextBlock>
         <TextBox Name="NumberOfTeams" Grid.Row="1" Grid.Column="0"  Margin="250, 60, 350, 60" Visibility="Collapsed"/>
         <Button Name="StartGame" Margin="452,0,248,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" FontSize="15" Content="Go!" Visibility="Collapsed" Click="StartGame_Click"/>
     </Grid>

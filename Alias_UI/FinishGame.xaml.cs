@@ -9,18 +9,22 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Alias_Core;
 
 namespace Alias_UI
 {
     /// <summary>
-    /// Логика взаимодействия для ActiveGame.xaml
+    /// Interaction logic for FinishGame.xaml
     /// </summary>
-    public partial class ActiveGame : Window
+    public partial class FinishGame : Window
     {
-        public ActiveGame()
+        private Game _game;
+        public FinishGame(Game game)
         {
             InitializeComponent();
-            //TODO: GameWindow logic. link with Alias_Logic
+            _game = game;
         }
+        //ToDo show game statistics
+        //ToDo new game button
     }
 }

@@ -8,6 +8,7 @@ namespace Alias_Core
 {
     public class Game
     {
+        public static int CurrentId = 0;
         public int Id { get; set; }
 
         public int TeamsAmount { get; set; }
@@ -17,7 +18,7 @@ namespace Alias_Core
         public DateTime StartDt { get; set; }
 
         public DateTime EndDt { get; set; }
-
+        public int Rounds { get; set; } = 0;
         //public DateTime Duration { get; set; }
 
 
