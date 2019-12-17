@@ -48,24 +48,29 @@ namespace Alias_UI
         //In this method we write name to list and check if we should open TeamName window again
         //If all names are written, we open ReadyWindow 
         {
-            _game.Teams[_iter-1].Name = TeamNameBlock.Text;
-            _iter += 1;
-            // GameManager.AllTeamsNames.Add(TeamNameBlock.Text);
-            // List of names should be filled after game to avoid mistakes
-            if (_iter <= _numteams)
+            if (TeamNameBlock.Text != "")
             {
-                TeamName tn = new TeamName(_game, _iter, _numteams);
-                this.Close();
-                tn.Show();
+                _game.Teams[_iter - 1].Name = TeamNameBlock.Text;
+                _iter += 1;
+                // GameManager.AllTeamsNames.Add(TeamNameBlock.Text);
+                // List of names should be filled after game to avoid mistakes
+                if (_iter <= _numteams)
+                {
+                    TeamName tn = new TeamName(_game, _iter, _numteams);
+                    this.Close();
+                    tn.Show();
+                }
+                else
+                {
+                    int i = 0;
+                    //i will be index of list element (team) we are working with
+                    ReadyWindow rw = new ReadyWindow(_game, i);
+                    this.Close();
+                    rw.Show();
+                }
             }
             else
-            {
-                int i = 0;
-                //i will be index of list element (team) we are working with
-                ReadyWindow rw = new ReadyWindow(_game, i);
-                this.Close();
-                rw.Show();
-            }
+                MessageBox.Show("Enter name of team");
         }
         private void ChooseTeam_Click(object sender, RoutedEventArgs e)
         {

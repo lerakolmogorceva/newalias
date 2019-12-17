@@ -10,5 +10,11 @@ namespace Alias_Core
         public int WordsSkipped { get; set; }
         public string TeamName { get; set; }
         public int PointsTotal { get; set; }
+        public Round(string name)
+        {
+            this.TeamName = name;
+            this.WordsGuessed = 0;
+            this.WordsSkipped = 0;
+        }
     }
 }

@@ -19,6 +19,7 @@ namespace Alias_Core
         public int TotalScore { get; set; } = 0;
         public string Name { get; set; }
         public int Victories { get; set; } = 0;
+        public int Games { get; set; } = 0;
 
     }
 }

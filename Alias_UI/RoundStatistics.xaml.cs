@@ -20,12 +20,21 @@ namespace Alias_UI
     {
         private Game _game;
         private int _iter;
-        public RoundStatistics(Game game, int iter)
+        private Round _round;
+        public RoundStatistics(Game game, int iter, Round round)
         {
             InitializeComponent();
             _game = game;
             _iter = iter;
-
+            _round = round;
+            round.PointsTotal = round.WordsGuessed - round.WordsSkipped;
+            if (round.PointsTotal < 0)
+                round.PointsTotal = 0;
+            TeamNameText.Text = _round.TeamName;
+            WordsSkippedText.Text = _round.WordsSkipped.ToString();
+            WordsGuessedText.Text = _round.WordsGuessed.ToString();
+            TotalPointsText.Text = _round.PointsTotal.ToString();
+            CurrentScoreText.Text = _game.Teams[_iter].CurrentScore.ToString();
         }
         private void NextRound_Click(object sender, RoutedEventArgs e)
         {
@@ -40,6 +49,7 @@ namespace Alias_UI
         }
         private void FinishGame_Click(object sender, RoutedEventArgs e)
         {
+            _game.EndDt = DateTime.Now;
             FinishGame fg = new FinishGame(_game);
             this.Close();
             fg.Show();

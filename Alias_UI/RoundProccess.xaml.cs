@@ -26,8 +26,9 @@ namespace Alias_UI
         private TimeSpan _timeToEnd; // time to stop
         private TimeSpan _interval = TimeSpan.FromSeconds(1); // timer interval
         private DateTime _pauseTime;
-
-
+        public GameManager manager = new GameManager();
+        private string currentWord;
+        private Round currentRound;
         private DispatcherTimer _timer;
         public RoundProccess(Game game, int iter)
         {
@@ -35,9 +36,14 @@ namespace Alias_UI
             _timer.Interval = _interval;
             _timer.Tick += timerTicker;
             InitializeComponent();
+            StartTimer(DateTime.Now);
+            currentWord = manager.GenerateNewWord();
+            CurrentWord.Text = currentWord;
             _game = game;
+            //iter is ID of team in current game
             _iter = iter;
-            Round _round = new Round();
+            _game.Rounds += 1;
+            currentRound = new Round(_game.Teams[_iter].Name);
         }
 
         //Here almost all methods are related to timer
@@ -77,7 +83,9 @@ namespace Alias_UI
         {
             if (TimerIsEnabled)
                 _timer.Stop();
-            EndRoundBtn.Visibility = Visibility.Visible;
+            RoundStatistics rs = new RoundStatistics(_game, _iter, currentRound);
+            this.Close();
+            rs.Show();
         }
 
         private void StartTimer(DateTime sDate)
@@ -91,35 +99,43 @@ namespace Alias_UI
         {
             _timer.Stop();
             _pauseTime = DateTime.Now;
-            EndRoundBtn.Visibility = Visibility.Visible;
+            CurrentWord.Text = "Game paused";
+            SkipWord_Button.Visibility = Visibility.Collapsed;
+            NextWord_Button.Visibility = Visibility.Collapsed;
+            ExplainWord.Visibility = Visibility.Collapsed;
         }
 
         private void ReleaseTimer()
         {
             var now = DateTime.Now;
             var elapsed = now.Subtract(_pauseTime);
-            EndRoundBtn.Visibility = Visibility.Collapsed;
             _startCountdown = _startCountdown.Add(elapsed);
             _timer.Start();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void StartTimer_Click(object sender, RoutedEventArgs e)
         {
             StartTimer(DateTime.Now);
+            currentWord = manager.GenerateNewWord();
+            CurrentWord.Text = currentWord;
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void PauseTimer_Click(object sender, RoutedEventArgs e)
         {
             PauseTimer();
         }
 
-        private void Button_Click_3(object sender, RoutedEventArgs e)
+        private void ReleaseTimer_Click(object sender, RoutedEventArgs e)
         {
             ReleaseTimer();
+            SkipWord_Button.Visibility = Visibility.Visible;
+            NextWord_Button.Visibility = Visibility.Visible;
+            ExplainWord.Visibility = Visibility.Visible;
+            CurrentWord.Text = currentWord;
         }
-        private void RoundEnd_Click(object sender, RoutedEventArgs e)
+            private void RoundEnd_Click(object sender, RoutedEventArgs e)
         {
-            RoundStatistics rs = new RoundStatistics(_game, _iter);
+            RoundStatistics rs = new RoundStatistics(_game, _iter, currentRound);
             this.Close();
             rs.Show();
             //TODO Timer with countdown - done
@@ -133,6 +149,20 @@ namespace Alias_UI
             FinishGame fg = new FinishGame(_game);
             this.Close();
             fg.Show();
+        }
+        private void SkipWord_Click(object sender, RoutedEventArgs e)
+        {
+            _game = manager.SkipWord(_game, _iter);
+            currentWord = manager.GenerateNewWord();
+            CurrentWord.Text = currentWord;
+            currentRound.WordsSkipped += 1;
+        }
+        private void NextWord_Click(object sender, RoutedEventArgs e)
+        {
+            _game = manager.NextWord(_game, _iter);
+            currentWord = manager.GenerateNewWord();
+            CurrentWord.Text = currentWord;
+            currentRound.WordsGuessed += 1;
         }
     }
 }

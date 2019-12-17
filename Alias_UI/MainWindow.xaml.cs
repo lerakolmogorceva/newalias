@@ -40,30 +40,46 @@ namespace Alias_UI
         {
             // Creating a game and filling it with data
             CurrentGame = new Game();
+            int NumOfTeams;
             string Input = NumberOfTeams.Text;
-            int NumOfTeams = Convert.ToInt32(Input);
-            CurrentGame.TeamsAmount = NumOfTeams;
-            CurrentGame.StartDt = DateTime.Now;
-            CurrentGame.Id = Game.CurrentId + 1;
-            CurrentGame.Teams = new List<Team>();
-            Game.CurrentId += 1;
-            Team.CurrentIdNum = 1;
-            // Filling list of teams for this game
-            for(int j=0; j < NumOfTeams; j++)
+            if (int.TryParse(Input, out NumOfTeams))
             {
-                Team t = new Team();
-                t.CurrentId = Team.CurrentIdNum;
-                t.TotalId = Team.TotalIdNum;
-                Team.CurrentIdNum += 1;
-                Team.TotalIdNum += 1;
-                CurrentGame.Teams.Add(t);
-                GameManager.AllTeams.Add(t);
+                if (NumOfTeams > 1)
+                {
+                    CurrentGame.TeamsAmount = NumOfTeams;
+                    CurrentGame.StartDt = DateTime.Now;
+                    CurrentGame.Id = Game.CurrentId + 1;
+                    CurrentGame.Teams = new List<Team>();
+                    Game.CurrentId += 1;
+                    Team.CurrentIdNum = 1;
+                    // Filling list of teams for this game
+                    for (int j = 0; j < NumOfTeams; j++)
+                    {
+                        Team t = new Team();
+                        t.CurrentId = Team.CurrentIdNum;
+                        t.TotalId = Team.TotalIdNum;
+                        Team.CurrentIdNum += 1;
+                        Team.TotalIdNum += 1;
+                        CurrentGame.Teams.Add(t);
+                        GameManager.AllTeams.Add(t);
+                    }
+                    int i = 1;
+                    //Opening windows with name choice, i is index that indicates number of opening of "TeamName" window
+                    TeamName tn = new TeamName(CurrentGame, i, NumOfTeams);
+                    this.Close();
+                    tn.Show();
+                }
+                else
+                {
+                  MessageBox.Show("Enter non-negative number more than 1");
+                    NumberOfTeams.Text = "";
+                }
             }
-            int i = 1;
-            //Opening windows with name choice, i is index that indicates number of opening of "TeamName" window
-            TeamName tn = new TeamName(CurrentGame, i, NumOfTeams);
-            this.Close();
-            tn.Show(); 
+            else
+            {
+                MessageBox.Show("Incorrect input, try again");
+                NumberOfTeams.Text = "";
+            }
             
         }
 
