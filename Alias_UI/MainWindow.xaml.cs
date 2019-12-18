@@ -22,9 +22,12 @@ namespace Alias_UI
     public partial class MainWindow : Window
     {
         public Game CurrentGame { get; set; }
+        GameManager _gameManager = new GameManager();
         public MainWindow()
         {
+
             InitializeComponent();
+
         }
 
         private void ToSetTeams_Click(object sender, RoutedEventArgs e)
@@ -36,32 +39,32 @@ namespace Alias_UI
             
         }
 
-        private void StartGame_Click(object sender, RoutedEventArgs e)
+        public void StartGame_Click(object sender, RoutedEventArgs e)
         {
+
             // Creating a game and filling it with data
-            CurrentGame = new Game();
             int NumOfTeams;
             string Input = NumberOfTeams.Text;
             if (int.TryParse(Input, out NumOfTeams))
             {
                 if (NumOfTeams > 1)
                 {
-                    CurrentGame.TeamsAmount = NumOfTeams;
-                    CurrentGame.StartDt = DateTime.Now;
-                    CurrentGame.Id = Game.CurrentId + 1;
-                    CurrentGame.Teams = new List<Team>();
-                    Game.CurrentId += 1;
-                    Team.CurrentIdNum = 1;
+            
+                    _gameManager.CurrentGame.TeamsAmount = NumOfTeams;
+                    _gameManager.CurrentGame.StartDt = DateTime.Now;
+                    _gameManager.CurrentGame.Id = Game.CurrentId + 1;
+                    _gameManager.CurrentGame.Teams = new List<Team>();
+                    //Team.CurrentIdNum = 1;
                     // Filling list of teams for this game
                     for (int j = 0; j < NumOfTeams; j++)
                     {
                         Team t = new Team();
-                        t.CurrentId = Team.CurrentIdNum;
+                        t.CurrentId = _gameManager.AllTeams.Last().Id + 1;
                         t.TotalId = Team.TotalIdNum;
                         Team.CurrentIdNum += 1;
                         Team.TotalIdNum += 1;
-                        CurrentGame.Teams.Add(t);
-                        GameManager.AllTeams.Add(t);
+                        _gameManager.CurrentGame.Teams.Add(t);
+                        _gameManager.AllTeams.Add(t);
                     }
                     int i = 1;
                     //Opening windows with name choice, i is index that indicates number of opening of "TeamName" window

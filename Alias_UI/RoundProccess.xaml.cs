@@ -37,7 +37,7 @@ namespace Alias_UI
             _timer.Tick += timerTicker;
             InitializeComponent();
             StartTimer(DateTime.Now);
-            currentWord = manager.GenerateNewWord();
+            currentWord = manager.RandomizeWord();
             CurrentWord.Text = currentWord;
             _game = game;
             //iter is ID of team in current game
@@ -116,7 +116,7 @@ namespace Alias_UI
         private void StartTimer_Click(object sender, RoutedEventArgs e)
         {
             StartTimer(DateTime.Now);
-            currentWord = manager.GenerateNewWord();
+            currentWord = manager.RandomizeWord();
             CurrentWord.Text = currentWord;
         }
 
@@ -153,14 +153,14 @@ namespace Alias_UI
         private void SkipWord_Click(object sender, RoutedEventArgs e)
         {
             _game = manager.SkipWord(_game, _iter);
-            currentWord = manager.GenerateNewWord();
+            currentWord = manager.RandomizeWord();
             CurrentWord.Text = currentWord;
             currentRound.WordsSkipped += 1;
         }
         private void NextWord_Click(object sender, RoutedEventArgs e)
         {
             _game = manager.NextWord(_game, _iter);
-            currentWord = manager.GenerateNewWord();
+            currentWord = manager.RandomizeWord();
             CurrentWord.Text = currentWord;
             currentRound.WordsGuessed += 1;
         }

@@ -1,0 +1,18 @@
+[
+  {
+    "Id": 1,
+    "Name": "Rocket",
+    "Games": 5,
+    "Victories": 4,
+    "Score": 1337,
+    "Current_Score": 0
+  },
+  {
+    "Id": 2,
+    "Name": "Beta",
+    "Games": 3,
+    "Victories": 1,
+    "Score": 137,
+    "Current_Score": 0
+  }
+]
