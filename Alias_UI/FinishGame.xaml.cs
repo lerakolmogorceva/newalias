@@ -56,6 +56,7 @@ namespace Alias_UI
         }
         private void NewTeams_Click(object sender, RoutedEventArgs e)
         {
+            GameManager.AllTeamsNames = new List<string>();
             MainWindow mw = new MainWindow();
             this.Close();
             mw.Show();

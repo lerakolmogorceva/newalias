@@ -28,7 +28,6 @@ namespace Alias_UI
         {
             
             InitializeComponent();
-            _gameManager.LoadDataPublic();
             listTeams = GameManager.AllTeams;
             ScoreTable.ItemsSource = listTeams;
         }
