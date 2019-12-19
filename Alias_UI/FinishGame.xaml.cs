@@ -37,9 +37,7 @@ namespace Alias_UI
             ListViewTeams.ItemsSource = listTeams;
             maxPoints = _gameManager.MaxPointsByGame(_gameManager.CurrentGame);
             MaximumPointsText.Text = maxPoints.ToString();
-            _gameManager.IncrementGames(listTeams);
-            GameManager.AllGames.Add(_gameManager.CurrentGame);
-            _gameManager.SaveData();
+            GameManager.EndGame(_gameManager);
         }
         //ToDo show game statistics
         //ToDo new game button

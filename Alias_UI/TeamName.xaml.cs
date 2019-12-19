@@ -23,7 +23,7 @@ namespace Alias_UI
         //private List<Team> _list;
         private int _iter;
         private int _numteams;
-        public TeamName(GameManager manager,  int iter, int numteams)
+        public TeamName(GameManager manager, int iter, int numteams)
         {
             InitializeComponent();
             //_team = CurrentTeam;
@@ -34,7 +34,7 @@ namespace Alias_UI
             TextTeamNumber.Text = _iter.ToString();
             TextTeamNumber2.Text = _iter.ToString();
         }
-        
+
         private void AddTeam_Click(object sender, RoutedEventArgs e)
         {
             TeamNameText.Visibility = Visibility.Visible;
@@ -50,24 +50,40 @@ namespace Alias_UI
         {
             if (TeamNameBlock.Text != "")
             {
-                _gameManager.CurrentGame.Teams[_iter - 1].Name = TeamNameBlock.Text;
-                GameManager.AllTeams.Add(_gameManager.CurrentGame.Teams[_iter - 1]);
-                _iter += 1;
-                // GameManager.AllTeamsNames.Add(TeamNameBlock.Text);
-                // List of names should be filled after game to avoid mistakes
-                if (_iter <= _numteams)
+                bool error = false;
+                for (int i=0; i < _iter; i++)
                 {
-                    TeamName tn = new TeamName(_gameManager, _iter, _numteams);
-                    this.Close();
-                    tn.Show();
+                    if (_gameManager.CurrentGame.Teams[i].Name == TeamNameBlock.Text)
+                        error = true;
                 }
+                foreach(string name in GameManager.AllTeamsNames)
+                {
+                    if (name == TeamNameBlock.Text)
+                        error = true;
+                }
+                if (error)
+                    MessageBox.Show("Team with this name already exists, try again");
                 else
                 {
-                    int i = 0;
-                    //i will be index of list element (team) we are working with
-                    ReadyWindow rw = new ReadyWindow(_gameManager, i);
-                    this.Close();
-                    rw.Show();
+                    _gameManager.CurrentGame.Teams[_iter - 1].Name = TeamNameBlock.Text;
+                    GameManager.AllTeams.Add(_gameManager.CurrentGame.Teams[_iter - 1]);
+                    _iter += 1;
+                    // GameManager.AllTeamsNames.Add(TeamNameBlock.Text);
+                    // List of names should be filled after game to avoid mistakes
+                    if (_iter <= _numteams)
+                    {
+                        TeamName tn = new TeamName(_gameManager, _iter, _numteams);
+                        this.Close();
+                        tn.Show();
+                    }
+                    else
+                    {
+                        int i = 0;
+                        //i will be index of list element (team) we are working with
+                        ReadyWindow rw = new ReadyWindow(_gameManager, i);
+                        this.Close();
+                        rw.Show();
+                    }
                 }
             }
             else
@@ -87,8 +103,12 @@ namespace Alias_UI
         private void SelectTeam_Click(object sender, RoutedEventArgs e)
         {
             string name = CbTeam.Text;
-            _gameManager.CurrentGame.Teams[_iter-1] = _gameManager.TeamByName(name);
+            _gameManager.CurrentGame.Teams[_iter - 1] = _gameManager.TeamByName(name);
             _iter += 1;
+            int id = _gameManager.TeamIdByName(name, GameManager.AllTeamsNames);
+            GameManager.AllTeamsNames.RemoveAt(id);
+            // GameManager.AllTeamsNames.Add(TeamNameBlock.Text);
+            // List of names should be filled after game to avoid mistakes
             if (_iter <= _numteams)
             {
                 TeamName tn = new TeamName(_gameManager, _iter, _numteams);
@@ -97,10 +117,10 @@ namespace Alias_UI
             }
             else
             {
-                this.Close();
                 int i = 0;
                 //i will be index of list element (team) we are working with
                 ReadyWindow rw = new ReadyWindow(_gameManager, i);
+                this.Close();
                 rw.Show();
             }
         }

@@ -24,17 +24,30 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" Text="Alias"/>
+        <TextBlock Text="Alias" Name="AliasText" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48"/>
 
         <StackPanel Name="Menu" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-            <Button Name="ToSetTeams" Margin="5" FontSize="15" Content="Start game" Click="ToSetTeams_Click"/>
-            <Button Name="Score" Margin="5" FontSize="15" Content="Score Tab" Click="Score_Click"/>
+            <Button  Name="ToSetTeams" Margin="5" FontSize="15" Content="Start game" Click="ToSetTeams_Click"/>
+            <Button  Name="Score" Margin="5" FontSize="15" Content="Score Tab" Click="Score_Click"/>
         </StackPanel>
+        <TextBlock Visibility="Collapsed" Margin="20,15" Name="ScoreTableText" FontSize="20"> Score table </TextBlock>
+        <ListView Name="ScoreTable" Margin="20,40" Visibility="Collapsed">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="230" Header="Name" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Width="130" Header="Total Score" DisplayMemberBinding="{Binding TotalScore}" />
+                    <GridViewColumn Width="130" Header="Games played" DisplayMemberBinding="{Binding Games}" />
+                    <GridViewColumn Width="130" Header="Games winned" DisplayMemberBinding="{Binding Victories}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
 
-        <TextBlock Name="NumberOfTeamsText" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="0,20,0,20" FontSize="20" Visibility="Collapsed">
+        <TextBlock Visibility="Collapsed" Name="NumberOfTeamsText" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="0,20,0,20" FontSize="20">
             Set number of teams
         </TextBlock>
-        <TextBox Height="32" Name="NumberOfTeams" Grid.Row="1" Grid.Column="0"  Margin="340, 60, 350, 60" Width="100"/>
-        <Button Name="StartGame" Margin="452,0,248,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" FontSize="15" Content="Go!" Visibility="Collapsed" Click="StartGame_Click"/>
+        <StackPanel Name="NumberOfTeamsPanel" Visibility="Collapsed" Grid.Row="1" Orientation="Horizontal">
+            <TextBox Height="30" Width="100" Grid.Row="1" Margin="315,0,0,0" Name="NumberOfTeams"></TextBox>
+        <Button Name="StartGame" Margin="30,0,248,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" FontSize="15" Content="Go!" Click="StartGame_Click"/>
+        </StackPanel>
     </Grid>
 </Window>

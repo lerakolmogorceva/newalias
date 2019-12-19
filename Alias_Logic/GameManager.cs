@@ -52,11 +52,12 @@ namespace Alias_Core
 
             //CurrentNumberOfTeams = AllTeams.Last().CurrentId += 1;
             //CurrentGameId = AllGames.Last().Id += 1;
-
-            
-
-
         }
+        public void LoadDataPublic()
+        {
+            LoadData();
+        }
+
         public Game SkipWord(Game game, int id)
         {
             if (game.Teams[id].CurrentScore > 0)
@@ -98,6 +99,13 @@ namespace Alias_Core
             }
             return listWinners;
         }
+        public static void EndGame(GameManager _gameManager)
+        {
+            _gameManager.IncrementGames(_gameManager.CurrentGame.Teams);
+            GameManager.AllGames.Add(_gameManager.CurrentGame);
+            _gameManager.SaveData();
+            Team.CurrentIdNum = 0;
+        }
         public Team TeamByName(string name)
         {
             Team team = new Team();
@@ -111,6 +119,17 @@ namespace Alias_Core
                 }
             }
             return team;
+        }
+
+        public int TeamIdByName(string name, List<string> list)
+        {
+            int id = 0;
+            for (int i = 0; i < list.Count; i++)
+            {  
+                if (list[i] == name)
+                    id = i; 
+            }
+            return id;
         }
         public string StringWinner(List<Team> list)
         {

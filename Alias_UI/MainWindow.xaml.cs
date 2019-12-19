@@ -23,18 +23,21 @@ namespace Alias_UI
     {
         public Game CurrentGame { get; set; }
         GameManager _gameManager = new GameManager();
+        private List<Team> listTeams;
         public MainWindow()
         {
-
+            
             InitializeComponent();
-
+            _gameManager.LoadDataPublic();
+            listTeams = GameManager.AllTeams;
+            ScoreTable.ItemsSource = listTeams;
         }
 
         private void ToSetTeams_Click(object sender, RoutedEventArgs e)
         {
             Menu.Visibility = Visibility.Collapsed;
             NumberOfTeamsText.Visibility = Visibility.Visible;
-            NumberOfTeams.Visibility = Visibility.Visible;
+            NumberOfTeamsPanel.Visibility = Visibility.Visible;
             StartGame.Visibility = Visibility.Visible;
 
         }
@@ -51,7 +54,7 @@ namespace Alias_UI
 
                     _gameManager.CurrentGame.TeamsAmount = NumOfTeams;
                     _gameManager.CurrentGame.StartDt = DateTime.Now;
-                    _gameManager.CurrentGame.Id = Game.CurrentId + 1;
+                    _gameManager.CurrentGame.Id = Game.CurrentId + 1; ;
                     _gameManager.CurrentGame.Teams = new List<Team>();
                     //Team.CurrentIdNum = 1;
                     // Filling list of teams for this game
@@ -84,9 +87,12 @@ namespace Alias_UI
 
         private void Score_Click(object sender, RoutedEventArgs e)
         {
+            
             ToSetTeams.Visibility = Visibility.Collapsed;
             Score.Visibility = Visibility.Collapsed;
-            //ListView for teams: name, number of victories, total points, max points
+            ScoreTable.Visibility = Visibility.Visible;
+            ScoreTableText.Visibility = Visibility.Visible;
+            AliasText.Visibility = Visibility.Collapsed;
         }
     }
 }

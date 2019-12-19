@@ -8,7 +8,7 @@ namespace Alias_Core
 {
     public class Team
     {
-        public static int CurrentIdNum = 1;
+        public static int CurrentIdNum = 0;
         public int CurrentId { get; set; }
         public string Name { get; set; }
         public int CurrentScore { get; set; } = 0;
