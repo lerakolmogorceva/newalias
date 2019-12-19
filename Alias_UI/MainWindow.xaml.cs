@@ -22,9 +22,12 @@ namespace Alias_UI
     public partial class MainWindow : Window
     {
         public Game CurrentGame { get; set; }
+        GameManager _gameManager = new GameManager();
         public MainWindow()
         {
+
             InitializeComponent();
+
         }
 
         private void ToSetTeams_Click(object sender, RoutedEventArgs e)
@@ -33,45 +36,41 @@ namespace Alias_UI
             NumberOfTeamsText.Visibility = Visibility.Visible;
             NumberOfTeams.Visibility = Visibility.Visible;
             StartGame.Visibility = Visibility.Visible;
-            
+
         }
 
-        private void StartGame_Click(object sender, RoutedEventArgs e)
+        public void StartGame_Click(object sender, RoutedEventArgs e)
         {
-            // Creating a game and filling it with data
-            CurrentGame = new Game();
             int NumOfTeams;
+            _gameManager.CurrentGame = new Game();
             string Input = NumberOfTeams.Text;
             if (int.TryParse(Input, out NumOfTeams))
             {
                 if (NumOfTeams > 1)
                 {
-                    CurrentGame.TeamsAmount = NumOfTeams;
-                    CurrentGame.StartDt = DateTime.Now;
-                    CurrentGame.Id = Game.CurrentId + 1;
-                    CurrentGame.Teams = new List<Team>();
-                    Game.CurrentId += 1;
-                    Team.CurrentIdNum = 1;
+
+                    _gameManager.CurrentGame.TeamsAmount = NumOfTeams;
+                    _gameManager.CurrentGame.StartDt = DateTime.Now;
+                    _gameManager.CurrentGame.Id = Game.CurrentId + 1;
+                    _gameManager.CurrentGame.Teams = new List<Team>();
+                    //Team.CurrentIdNum = 1;
                     // Filling list of teams for this game
                     for (int j = 0; j < NumOfTeams; j++)
                     {
                         Team t = new Team();
-                        t.CurrentId = Team.CurrentIdNum;
-                        t.TotalId = Team.TotalIdNum;
+                        t.CurrentId = Team.CurrentIdNum + 1;
                         Team.CurrentIdNum += 1;
-                        Team.TotalIdNum += 1;
-                        CurrentGame.Teams.Add(t);
-                        GameManager.AllTeams.Add(t);
+                        _gameManager.CurrentGame.Teams.Add(t);
                     }
                     int i = 1;
                     //Opening windows with name choice, i is index that indicates number of opening of "TeamName" window
-                    TeamName tn = new TeamName(CurrentGame, i, NumOfTeams);
+                    TeamName tn = new TeamName(_gameManager, i, NumOfTeams);
                     this.Close();
                     tn.Show();
                 }
                 else
                 {
-                  MessageBox.Show("Enter non-negative number more than 1");
+                    MessageBox.Show("Enter non-negative number more than 1");
                     NumberOfTeams.Text = "";
                 }
             }
@@ -80,7 +79,7 @@ namespace Alias_UI
                 MessageBox.Show("Incorrect input, try again");
                 NumberOfTeams.Text = "";
             }
-            
+
         }
 
         private void Score_Click(object sender, RoutedEventArgs e)

@@ -5,6 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Alias_UI"
         mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Light"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
         Title="RoundStatistics" Width="800"
         Height="450" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
@@ -13,7 +21,7 @@
             <RowDefinition Height="152*" />
             <RowDefinition Height="145*" />
         </Grid.RowDefinitions>
-        <TextBlock FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Height="27" Width="138"> Round statistics</TextBlock>
+        <TextBlock FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Height="27" Width="150"> Round statistics</TextBlock>
         <StackPanel HorizontalAlignment="Center" Margin="0,137,0,0" Grid.RowSpan="2">
             <TextBlock FontSize="20"> Name of team: <TextBlock Name="TeamNameText"></TextBlock> </TextBlock>
             <TextBlock FontSize="20"> Words guessed: <TextBlock Name="WordsGuessedText"></TextBlock></TextBlock>
@@ -23,8 +31,8 @@
             
         </StackPanel>
         <StackPanel Grid.Row="1" Margin="0,152,0,0" Grid.RowSpan="2">
-            <Button Click="NextRound_Click" Width="80" Height="30" Margin="0,10">Next Round</Button>
-            <Button Click="FinishGame_Click" Grid.Row="1" Margin="0,20" Width="80" Height="30">End game</Button>
+            <Button Click="NextRound_Click" Width="150" Height="30" Margin="0,10">Next round</Button>
+            <Button Click="FinishGame_Click" Grid.Row="1" Margin="0,20" Width="150" Height="30">End game</Button>
         </StackPanel>
 
     </Grid>

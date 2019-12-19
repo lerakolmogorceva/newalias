@@ -5,26 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Alias_UI"
         mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Light"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
         Title="TeamName" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Name="ChooseOption" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" FontSize="15" Margin="0,40,0,0"> Choose option for team number <TextBlock Name="TextTeamNumber"></TextBlock></TextBlock>
-        <Button Name="AddTeam" Click="AddTeam_Click" Grid.Row="1" Grid.Column="0" Margin="330,40,330,0" VerticalAlignment="Center" Height="25" FontSize="15" Content="Add new team"></Button>
-        <Button Name="ChooseTeam" Click="ChooseTeam_Click" Grid.Row="1" Grid.Column="0" Margin="330,0,330,0" Height="25" VerticalAlignment="Bottom" Content="Choose from list" FontSize="15"></Button>
+        <StackPanel Grid.Row="1" Margin="0,120"> 
+        <TextBlock Name="ChooseOption" HorizontalAlignment="Center" FontSize="15" Margin="0,40,0,0"> Choose option for team number <TextBlock Name="TextTeamNumber"></TextBlock></TextBlock>
+        <Button Name="AddTeam" Click="AddTeam_Click" Width="200"  Margin="300,25,300,0" VerticalAlignment="Center" Height="30" FontSize="15" Content="Add new team"></Button>
+        <Button Name="ChooseTeam" Click="ChooseTeam_Click" Margin="300,25,300,0" Height="30" VerticalAlignment="Bottom" Content="Choose from list" FontSize="15"></Button>
+        </StackPanel>
         <TextBlock Name="TeamNameText" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="0,20,0,20" FontSize="20" Visibility="Collapsed">
             Set name of team number <TextBlock Name="TextTeamNumber2"></TextBlock> 
         </TextBlock>
-        <TextBox Name="TeamNameBlock" Grid.Row="1" Grid.Column="0"  Margin="250, 60, 250, 60" Visibility="Collapsed" />
+        <TextBox Height="32" Name="TeamNameBlock" Grid.Row="1" Grid.Column="0"  Margin="250, 60, 250, 60" Visibility="Collapsed" />
         <Button Name="AddTeamBtn" Click="AddTeamByName_Click" Grid.Row="1" Grid.Column="0" Margin="330,80,330,0" Height="25" VerticalAlignment="Center" Content="Add new team" Visibility="Collapsed"></Button>
         <TextBlock Name="SelectBlock" Grid.Row="1" Grid.Column="1" FontSize="20" HorizontalAlignment="Center" Margin="0,15" Visibility="Collapsed"> Select team </TextBlock>
         <ComboBox Name="CbTeam" Grid.Row="1" Grid.Column="0" Width="300" Height="40" Visibility="Collapsed"> </ComboBox>
-        <Button Name="SelectBtn" Click="SelectTeam_Click" Grid.Row="1" Width="60" Height="23" FontSize="15" Margin="0,90,0,0" Visibility="Collapsed"> Select </Button>
+        <Button Name="SelectBtn" Click="SelectTeam_Click" Grid.Row="1" Width="100" Height="23" FontSize="15" Margin="0,90,0,0" Visibility="Collapsed"> Select </Button>
     </Grid>
 </Window>

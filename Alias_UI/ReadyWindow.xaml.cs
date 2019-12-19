@@ -18,18 +18,18 @@ namespace Alias_UI
     /// </summary>
     public partial class ReadyWindow : Window
     {
-        private Game _game;
+        private GameManager _gameManager;
         private int _iter;
-        public ReadyWindow(Game game, int iter)
+        public ReadyWindow(GameManager manager, int iter)
         {
             InitializeComponent();
-            _game = game;
+            _gameManager = manager;
             _iter = iter;
-            TeamNameInsert.Text = _game.Teams[_iter].Name;
+            TeamNameInsert.Text = _gameManager.CurrentGame.Teams[_iter].Name;
         }
         private void StartRound_Click(object sender, RoutedEventArgs e)
         {
-            RoundProccess round = new RoundProccess(_game, _iter);
+            RoundProccess round = new RoundProccess(_gameManager, _iter);
             //_iter is a team current index in list, when all teams playes, _iter = 0 and game continues
             this.Close();
             round.Show();

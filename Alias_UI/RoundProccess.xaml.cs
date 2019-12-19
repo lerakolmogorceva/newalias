@@ -19,31 +19,30 @@ namespace Alias_UI
     /// </summary>
     public partial class RoundProccess : Window
     {
-        private Game _game;
+        private GameManager _gameManager;
         private int _iter;
         private DateTime _startCountdown; // timer start
         private TimeSpan _startTimeSpan = TimeSpan.FromSeconds(60); // initial time to stop
         private TimeSpan _timeToEnd; // time to stop
         private TimeSpan _interval = TimeSpan.FromSeconds(1); // timer interval
         private DateTime _pauseTime;
-        public GameManager manager = new GameManager();
         private string currentWord;
         private Round currentRound;
         private DispatcherTimer _timer;
-        public RoundProccess(Game game, int iter)
+        public RoundProccess(GameManager manager, int iter)
         {
             _timer = new DispatcherTimer();
             _timer.Interval = _interval;
             _timer.Tick += timerTicker;
             InitializeComponent();
             StartTimer(DateTime.Now);
-            currentWord = manager.GenerateNewWord();
+            _gameManager = manager;
+            currentWord = _gameManager.GenerateNewWord();
             CurrentWord.Text = currentWord;
-            _game = game;
             //iter is ID of team in current game
             _iter = iter;
-            _game.Rounds += 1;
-            currentRound = new Round(_game.Teams[_iter].Name);
+            _gameManager.CurrentGame.Rounds += 1;
+            currentRound = new Round(_gameManager.CurrentGame.Teams[_iter].Name);
         }
 
         //Here almost all methods are related to timer
@@ -83,7 +82,7 @@ namespace Alias_UI
         {
             if (TimerIsEnabled)
                 _timer.Stop();
-            RoundStatistics rs = new RoundStatistics(_game, _iter, currentRound);
+            RoundStatistics rs = new RoundStatistics(_gameManager, _iter, currentRound);
             this.Close();
             rs.Show();
         }
@@ -116,7 +115,7 @@ namespace Alias_UI
         private void StartTimer_Click(object sender, RoutedEventArgs e)
         {
             StartTimer(DateTime.Now);
-            currentWord = manager.GenerateNewWord();
+            currentWord = _gameManager.GenerateNewWord();
             CurrentWord.Text = currentWord;
         }
 
@@ -135,7 +134,7 @@ namespace Alias_UI
         }
             private void RoundEnd_Click(object sender, RoutedEventArgs e)
         {
-            RoundStatistics rs = new RoundStatistics(_game, _iter, currentRound);
+            RoundStatistics rs = new RoundStatistics(_gameManager, _iter, currentRound);
             this.Close();
             rs.Show();
             //TODO Timer with countdown - done
@@ -146,21 +145,21 @@ namespace Alias_UI
 
         private void FinishGame_Click(object sender, RoutedEventArgs e)
         {
-            FinishGame fg = new FinishGame(_game);
+            FinishGame fg = new FinishGame(_gameManager);
             this.Close();
             fg.Show();
         }
         private void SkipWord_Click(object sender, RoutedEventArgs e)
         {
-            _game = manager.SkipWord(_game, _iter);
-            currentWord = manager.GenerateNewWord();
+            _gameManager.CurrentGame = _gameManager.SkipWord(_gameManager.CurrentGame, _iter);
+            currentWord = _gameManager.GenerateNewWord();
             CurrentWord.Text = currentWord;
             currentRound.WordsSkipped += 1;
         }
         private void NextWord_Click(object sender, RoutedEventArgs e)
         {
-            _game = manager.NextWord(_game, _iter);
-            currentWord = manager.GenerateNewWord();
+           _gameManager.CurrentGame = _gameManager.NextWord(_gameManager.CurrentGame, _iter);
+            currentWord = _gameManager.GenerateNewWord();
             CurrentWord.Text = currentWord;
             currentRound.WordsGuessed += 1;
         }

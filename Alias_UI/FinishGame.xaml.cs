@@ -20,26 +20,26 @@ namespace Alias_UI
     {
         private List<Team> listTeams;
         private List<Team> listWinners;
-        private Game _game;
+        private GameManager _gameManager;
         private string Winners;
         private int maxPoints;
-        private GameManager manager;
-        public FinishGame(Game game)
+        public FinishGame(GameManager manager)
         {
             InitializeComponent();
-            _game = game;
-            manager = new GameManager();
-            listWinners = manager.ChooseWinner(_game);
-            Winners = manager.StringWinner(listWinners);
-            listTeams = _game.Teams;
-            StartTimeText.Text = _game.StartDt.ToString();
-            EndTimeText.Text = _game.EndDt.ToString();
-            NumTeamsText.Text = _game.TeamsAmount.ToString();
+            _gameManager = manager;
+            listWinners = _gameManager.ChooseWinner(_gameManager.CurrentGame);
+            Winners = _gameManager.StringWinner(listWinners);
+            listTeams = _gameManager.CurrentGame.Teams;
+            StartTimeText.Text = _gameManager.CurrentGame.StartDt.ToString();
+            EndTimeText.Text = _gameManager.CurrentGame.EndDt.ToString();
+            NumTeamsText.Text = _gameManager.CurrentGame.TeamsAmount.ToString();
             WinnerText.Text = Winners;
             ListViewTeams.ItemsSource = listTeams;
-            maxPoints = manager.MaxPointsByGame(_game);
+            maxPoints = _gameManager.MaxPointsByGame(_gameManager.CurrentGame);
             MaximumPointsText.Text = maxPoints.ToString();
-            manager.IncrementGames(listTeams);
+            _gameManager.IncrementGames(listTeams);
+            GameManager.AllGames.Add(_gameManager.CurrentGame);
+            _gameManager.SaveData();
         }
         //ToDo show game statistics
         //ToDo new game button
@@ -49,9 +49,10 @@ namespace Alias_UI
         }
         private void SameTeams_Click(object sender, RoutedEventArgs e)
         {
-            Game newGame = manager.NewGameSameTeams(_game);
+            Game newGame = _gameManager.NewGameSameTeams(_gameManager.CurrentGame);
             int iter = 0;
-            ReadyWindow rw = new ReadyWindow(newGame, iter);
+            _gameManager.CurrentGame = newGame;
+            ReadyWindow rw = new ReadyWindow(_gameManager, iter);
             this.Close();
             rw.Show();
         }

@@ -5,6 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Alias_UI"
         mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Light"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
         Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -26,8 +34,7 @@
         <TextBlock Name="NumberOfTeamsText" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="0,20,0,20" FontSize="20" Visibility="Collapsed">
             Set number of teams
         </TextBlock>
-        <TextBlock Name="TestBlock" FontSize="30"> </TextBlock>
-        <TextBox Name="NumberOfTeams" Grid.Row="1" Grid.Column="0"  Margin="250, 60, 350, 60" Visibility="Collapsed"/>
+        <TextBox Height="32" Name="NumberOfTeams" Grid.Row="1" Grid.Column="0"  Margin="340, 60, 350, 60" Width="100"/>
         <Button Name="StartGame" Margin="452,0,248,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" FontSize="15" Content="Go!" Visibility="Collapsed" Click="StartGame_Click"/>
     </Grid>
 </Window>

@@ -18,13 +18,13 @@ namespace Alias_UI
     /// </summary>
     public partial class RoundStatistics : Window
     {
-        private Game _game;
+        private GameManager _gameManager;
         private int _iter;
         private Round _round;
-        public RoundStatistics(Game game, int iter, Round round)
+        public RoundStatistics(GameManager manager, int iter, Round round)
         {
             InitializeComponent();
-            _game = game;
+            _gameManager = manager;
             _iter = iter;
             _round = round;
             round.PointsTotal = round.WordsGuessed - round.WordsSkipped;
@@ -34,23 +34,23 @@ namespace Alias_UI
             WordsSkippedText.Text = _round.WordsSkipped.ToString();
             WordsGuessedText.Text = _round.WordsGuessed.ToString();
             TotalPointsText.Text = _round.PointsTotal.ToString();
-            CurrentScoreText.Text = _game.Teams[_iter].CurrentScore.ToString();
+            CurrentScoreText.Text = _gameManager.CurrentGame.Teams[_iter].CurrentScore.ToString();
         }
         private void NextRound_Click(object sender, RoutedEventArgs e)
         {
-            if (_iter < _game.Teams.Count - 1)
+            if (_iter < _gameManager.CurrentGame.Teams.Count - 1)
                 _iter += 1;
             else
                 _iter = 0;
-            ReadyWindow rw = new ReadyWindow(_game, _iter);
+            ReadyWindow rw = new ReadyWindow(_gameManager, _iter);
             this.Close();
             rw.Show();
             //TODO show statistics of round
         }
         private void FinishGame_Click(object sender, RoutedEventArgs e)
         {
-            _game.EndDt = DateTime.Now;
-            FinishGame fg = new FinishGame(_game);
+            _gameManager.CurrentGame.EndDt = DateTime.Now;
+            FinishGame fg = new FinishGame(_gameManager);
             this.Close();
             fg.Show();
         }

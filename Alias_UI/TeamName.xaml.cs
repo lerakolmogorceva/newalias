@@ -19,15 +19,15 @@ namespace Alias_UI
     public partial class TeamName : Window
     {
         //private Team _team;
-        private Game _game;
+        private GameManager _gameManager;
         //private List<Team> _list;
         private int _iter;
         private int _numteams;
-        public TeamName(Game CurrentGame,  int iter, int numteams)
+        public TeamName(GameManager manager,  int iter, int numteams)
         {
             InitializeComponent();
             //_team = CurrentTeam;
-            _game = CurrentGame;
+            _gameManager = manager;
             //_list = CurrentList;
             _iter = iter;
             _numteams = numteams;
@@ -50,13 +50,14 @@ namespace Alias_UI
         {
             if (TeamNameBlock.Text != "")
             {
-                _game.Teams[_iter - 1].Name = TeamNameBlock.Text;
+                _gameManager.CurrentGame.Teams[_iter - 1].Name = TeamNameBlock.Text;
+                GameManager.AllTeams.Add(_gameManager.CurrentGame.Teams[_iter - 1]);
                 _iter += 1;
                 // GameManager.AllTeamsNames.Add(TeamNameBlock.Text);
                 // List of names should be filled after game to avoid mistakes
                 if (_iter <= _numteams)
                 {
-                    TeamName tn = new TeamName(_game, _iter, _numteams);
+                    TeamName tn = new TeamName(_gameManager, _iter, _numteams);
                     this.Close();
                     tn.Show();
                 }
@@ -64,7 +65,7 @@ namespace Alias_UI
                 {
                     int i = 0;
                     //i will be index of list element (team) we are working with
-                    ReadyWindow rw = new ReadyWindow(_game, i);
+                    ReadyWindow rw = new ReadyWindow(_gameManager, i);
                     this.Close();
                     rw.Show();
                 }
@@ -81,18 +82,16 @@ namespace Alias_UI
             ChooseTeam.Visibility = Visibility.Collapsed;
             ChooseOption.Visibility = Visibility.Collapsed;
             CbTeam.ItemsSource = GameManager.AllTeamsNames;
-            //GameManager.AllTeamsNames is important list and we should fill it
-            //after game because otherwise there's an opportunity to choose team
-            //which was created in the same game
         }
 
         private void SelectTeam_Click(object sender, RoutedEventArgs e)
         {
-            _game.Teams[_iter - 1].Name = CbTeam.Text;
+            string name = CbTeam.Text;
+            _gameManager.CurrentGame.Teams[_iter-1] = _gameManager.TeamByName(name);
             _iter += 1;
             if (_iter <= _numteams)
             {
-                TeamName tn = new TeamName(_game, _iter, _numteams);
+                TeamName tn = new TeamName(_gameManager, _iter, _numteams);
                 this.Close();
                 tn.Show();
             }
@@ -101,8 +100,7 @@ namespace Alias_UI
                 this.Close();
                 int i = 0;
                 //i will be index of list element (team) we are working with
-                ReadyWindow rw = new ReadyWindow(_game, i);
-                this.Close();
+                ReadyWindow rw = new ReadyWindow(_gameManager, i);
                 rw.Show();
             }
         }
