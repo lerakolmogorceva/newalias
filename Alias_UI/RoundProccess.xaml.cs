@@ -87,6 +87,15 @@ namespace Alias_UI
             rs.Show();
         }
 
+        private void StopGame()
+        {
+            if (TimerIsEnabled)
+                _timer.Stop();
+            FinishGame rd = new FinishGame(_gameManager);
+            this.Close();
+            rd.Show();
+        }
+
         private void StartTimer(DateTime sDate)
         {
             _startCountdown = sDate;
@@ -134,9 +143,7 @@ namespace Alias_UI
         }
             private void RoundEnd_Click(object sender, RoutedEventArgs e)
         {
-            RoundStatistics rs = new RoundStatistics(_gameManager, _iter, currentRound);
-            this.Close();
-            rs.Show();
+            StopTimer();
             //TODO Timer with countdown - done
             //TODO Cards with random words
             //Buttons "Skip" and "Done"
@@ -145,9 +152,7 @@ namespace Alias_UI
 
         private void FinishGame_Click(object sender, RoutedEventArgs e)
         {
-            FinishGame fg = new FinishGame(_gameManager);
-            this.Close();
-            fg.Show();
+            StopGame();
         }
         private void SkipWord_Click(object sender, RoutedEventArgs e)
         {

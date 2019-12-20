@@ -28,7 +28,7 @@
             <TextBlock FontSize="18"> Winned: <TextBlock Name="WinnerText"> </TextBlock></TextBlock>
             <TextBlock FontSize="18"> Maximum points: <TextBlock Name="MaximumPointsText"> </TextBlock></TextBlock>
             <Button Click="SameTeams_Click" Margin="0,10"> Start game with same teams </Button>
-            <Button Click="NewTeams_Click"> Start game with new teams </Button>
+            <Button Click="NewTeams_Click"> Menu </Button>
             <Button Click="Exit_Click" Margin="0,10"> Exit </Button>
         </StackPanel>
         <StackPanel Grid.Row="0">
@@ -37,10 +37,10 @@
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Width="250" Header="Name" DisplayMemberBinding="{Binding Name}" />
-                    <GridViewColumn Width="250" Header="Score" DisplayMemberBinding="{Binding CurrentScore}" />
-                </GridView>
-            </ListView.View>
-        </ListView>
+                        <GridViewColumn Width="250" Header="Score" DisplayMemberBinding="{Binding CurrentScore}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
         </StackPanel>
     </Grid>
 </Window>

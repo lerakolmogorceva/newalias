@@ -31,7 +31,8 @@
             <Button  Name="Score" Margin="5" FontSize="15" Content="Score Tab" Click="Score_Click"/>
         </StackPanel>
         <TextBlock Visibility="Collapsed" Margin="20,15" Name="ScoreTableText" FontSize="20"> Score table </TextBlock>
-        <ListView Name="ScoreTable" Margin="20,40" Visibility="Collapsed">
+        
+        <ListView Name="ScoreTable" Margin="0, 30, 0, 0" Grid.RowSpan="3" Visibility="Collapsed">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="230" Header="Name" DisplayMemberBinding="{Binding Name}" />
@@ -41,6 +42,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        
 
         <TextBlock Visibility="Collapsed" Name="NumberOfTeamsText" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="0,20,0,20" FontSize="20">
             Set number of teams
@@ -49,5 +51,7 @@
             <TextBox Height="30" Width="100" Grid.Row="1" Margin="315,0,0,0" Name="NumberOfTeams"></TextBox>
         <Button Name="StartGame" Margin="30,0,248,0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" FontSize="15" Content="Go!" Click="StartGame_Click"/>
         </StackPanel>
+
+        <Button Name="BackToMenu" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0, 0, 30, 10" Content="Back" Click="BackToMenu_Click" Visibility="Collapsed"/>
     </Grid>
 </Window>

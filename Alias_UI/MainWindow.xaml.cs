@@ -22,14 +22,12 @@ namespace Alias_UI
     public partial class MainWindow : Window
     {
         public Game CurrentGame { get; set; }
-        GameManager _gameManager = new GameManager();
-        private List<Team> listTeams;
+        public GameManager _gameManager = new GameManager();
+        private List<Team> listTeams = new List<Team>();
         public MainWindow()
         {
             
             InitializeComponent();
-            listTeams = GameManager.AllTeams;
-            ScoreTable.ItemsSource = listTeams;
         }
 
         private void ToSetTeams_Click(object sender, RoutedEventArgs e)
@@ -86,12 +84,25 @@ namespace Alias_UI
 
         private void Score_Click(object sender, RoutedEventArgs e)
         {
-            
+            listTeams = GameManager.AllTeams;
             ToSetTeams.Visibility = Visibility.Collapsed;
             Score.Visibility = Visibility.Collapsed;
+            AliasText.Visibility = Visibility.Collapsed;
+            ScoreTable.ItemsSource = listTeams;
             ScoreTable.Visibility = Visibility.Visible;
             ScoreTableText.Visibility = Visibility.Visible;
-            AliasText.Visibility = Visibility.Collapsed;
+            BackToMenu.Visibility = Visibility.Visible;
+
+        }
+
+        private void BackToMenu_Click(object sender, RoutedEventArgs e)
+        {
+            ScoreTable.Visibility = Visibility.Collapsed;
+            ScoreTableText.Visibility = Visibility.Collapsed;
+            BackToMenu.Visibility = Visibility.Collapsed;
+            AliasText.Visibility = Visibility.Visible;
+            Score.Visibility = Visibility.Visible;
+            ToSetTeams.Visibility = Visibility.Visible;
         }
     }
 }

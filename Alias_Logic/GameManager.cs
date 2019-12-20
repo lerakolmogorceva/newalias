@@ -22,7 +22,7 @@ namespace Alias_Core
         public static List<Game> AllGames = new List<Game>();
         public static List<Team> AllTeams = new List<Team>();
         public static List<string> AllTeamsNames = new List<string>();
-        public static List<string> Words = new List<string>();
+        public static List<string> Words;
         public Game CurrentGame;
 
         //public int CurrentNumberOfTeams;
@@ -31,13 +31,12 @@ namespace Alias_Core
         public GameManager()
         {
             LoadData();
-            SaveData();
         }
         private void LoadData()
         {
             var data = Deserialize<GameData>(GameDataFile);
-            AllGames = data._allGames ?? new List<Game>();
-            AllTeams = data._allTeams ?? new List<Team>();
+            AllGames = data._allGames;
+            AllTeams = data._allTeams;
             Words = new List<string>(File.ReadAllLines(WordlistFile, Encoding.UTF8));
 
             if (AllTeams.Count > 0)
@@ -47,15 +46,9 @@ namespace Alias_Core
                     AllTeamsNames.Add(team.Name);
                 }
             }
-            else
-                AllTeamsNames = new List<string>();
 
             //CurrentNumberOfTeams = AllTeams.Last().CurrentId += 1;
             //CurrentGameId = AllGames.Last().Id += 1;
-        }
-        public void LoadDataPublic()
-        {
-            LoadData();
         }
 
         public Game SkipWord(Game game, int id)

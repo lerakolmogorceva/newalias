@@ -37,12 +37,13 @@ namespace Alias_UI
 
         private void AddTeam_Click(object sender, RoutedEventArgs e)
         {
-            TeamNameText.Visibility = Visibility.Visible;
-            TeamNameBlock.Visibility = Visibility.Visible;
-            AddTeamBtn.Visibility = Visibility.Visible;
             AddTeam.Visibility = Visibility.Collapsed;
             ChooseTeam.Visibility = Visibility.Collapsed;
             ChooseOption.Visibility = Visibility.Collapsed;
+            TeamNameText.Visibility = Visibility.Visible;
+            TeamNameBlock.Visibility = Visibility.Visible;
+            AddTeamBtn.Visibility = Visibility.Visible;
+            BackToSelectFromAdd.Visibility = Visibility.Visible;
         }
         private void AddTeamByName_Click(object sender, RoutedEventArgs e)
         //In this method we write name to list and check if we should open TeamName window again
@@ -91,13 +92,14 @@ namespace Alias_UI
         }
         private void ChooseTeam_Click(object sender, RoutedEventArgs e)
         {
-            SelectBlock.Visibility = Visibility.Visible;
-            SelectBtn.Visibility = Visibility.Visible;
-            CbTeam.Visibility = Visibility.Visible;
             AddTeam.Visibility = Visibility.Collapsed;
             ChooseTeam.Visibility = Visibility.Collapsed;
             ChooseOption.Visibility = Visibility.Collapsed;
+            SelectBlock.Visibility = Visibility.Visible;
+            SelectBtn.Visibility = Visibility.Visible;
+            CbTeam.Visibility = Visibility.Visible;
             CbTeam.ItemsSource = GameManager.AllTeamsNames;
+            BackToSelectFromList.Visibility = Visibility.Visible;
         }
 
         private void SelectTeam_Click(object sender, RoutedEventArgs e)
@@ -123,6 +125,31 @@ namespace Alias_UI
                 this.Close();
                 rw.Show();
             }
+        }
+
+        private void BackToSelectFromAdd_Click(object sender, RoutedEventArgs e)
+        {
+            TeamNameText.Visibility = Visibility.Collapsed;
+            TeamNameBlock.Visibility = Visibility.Collapsed;
+            AddTeamBtn.Visibility = Visibility.Collapsed;
+            BackToSelectFromAdd.Visibility = Visibility.Collapsed;
+            AddTeam.Visibility = Visibility.Visible;
+            ChooseOption.Visibility = Visibility.Visible;
+            ChooseTeam.Visibility = Visibility.Visible;
+        }
+
+        private void BackToSelectFromList_Click(object sender, RoutedEventArgs e)
+        {
+            SelectBlock.Visibility = Visibility.Collapsed;
+            SelectBtn.Visibility = Visibility.Collapsed;
+            CbTeam.Visibility = Visibility.Collapsed;
+            BackToSelectFromList.Visibility = Visibility.Collapsed;
+            AddTeam.Visibility = Visibility.Visible;
+            ChooseOption.Visibility = Visibility.Visible;
+            ChooseTeam.Visibility = Visibility.Visible;
+
+
+
         }
     }
 }
